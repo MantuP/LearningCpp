@@ -1,0 +1,43 @@
+#!/bin/bash
+
+##################################################################################
+# FileName:log-archive
+# Author:pradhanprabina12@gmail.com
+# Purpose:
+# Date:
+##################################################################################
+
+# Check if exactly one argument is passed
+if [ "$#" -ne 1 ]; then
+  echo "Usage: $0 <log-directory-for-archive>"
+  echo "Error: Please provide exactly one argument as a directory path for archive."
+  exit 1
+fi
+
+# Get the directory path
+DIR_PATH=$1
+ARCHIVE_LOG_OATH="./"
+
+# Check if the directory exists
+if [ ! -d "$DIR_PATH" ]; then
+  echo "Error: Directory '$DIR_PATH' does not exist."
+  exit 1
+fi
+
+# Generate archive filename with current date and time
+DATE_TIME=$(date '+%Y%m%d_%H%M%S')
+ARCHIVE_NAME="logs_archive_${DATE_TIME}.tar.gz"
+
+# Create the archive
+tar -czf $ARCHIVE_NAME -C "$DIR_PATH" .
+
+# Check if the archive was created successfully
+if [ $? -eq 0 ]; then
+  echo "Files in '$DIR_PATH' have been archived as '$ARCHIVE_NAME'."
+  find ${DIR_PATH} -type f -print0 | xargs -0 rm -f
+  mv $ARCHIVE_NAME $ARCHIVE_LOG_OATH
+else
+  echo "Error: Failed to create archive."
+  exit 1
+fi
+
