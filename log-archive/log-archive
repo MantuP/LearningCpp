@@ -37,7 +37,7 @@ if [ $? -eq 0 ]; then
   find ${DIR_PATH} -type f -print0 | xargs -0 rm -f
   mv $ARCHIVE_NAME $ARCHIVE_LOG_OATH
 else
-  echo "Error: Failed to create archive."
+  echo "Error: Failed to create the archive."
   exit 1
 fi
 
