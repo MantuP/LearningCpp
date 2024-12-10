@@ -1,0 +1,5 @@
+rm ../objectfiles/*.o
+rm ../objectfiles/debug/*.o
+rm ../bin/libbso*
+make -f abl_makefile_linux agents UNIT=NO_TEST LIBNAME="libbsoutagent" LIBNAMED="libbsoutd" VER="5.0.0" OBJS="PM_Job.o PM_FetchCdrFile.o PM_TapinFiles.o PM_TapinReprice.o PM_TapinCdrs.o PM_WriteToFile.o PM_GetMsisdn.o StopRating.o LastDummyAgent.o"
+

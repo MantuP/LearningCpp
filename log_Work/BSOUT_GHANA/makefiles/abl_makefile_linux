@@ -1,0 +1,55 @@
+APPROOT:=/home/PM_NEPAL_CLIENT/PM/Prabina/MTN_Ghana/BSOUT_GHANA
+#ABL_INC_PATH:=/home/wbs_dv_44/PM/FrameworkLib_3.6/ServicesLayer/include
+#ABL_LIB_PATH:=/home/wbs_dv_44/PM/FrameworkLib_3.6/ServicesLayer/lib
+#FRM_INC_PATH:=/home/wbs_dv_44/PM/FrameworkLib_3.6/Framework/include
+#FRM_LIB_PATH:=/home/wbs_dv_44/PM/FrameworkLib_3.6/Framework/lib
+ABL_INC_PATH=/home/PM_NEPAL_CLIENT/PM/FrameworkLib_3.6/ServicesLayer/include/
+ABL_LIB_PATH=/home/PM_NEPAL_CLIENT/PM/FrameworkLib_3.6/ServicesLayer/lib/
+FRM_INC_PATH=/home/PM_NEPAL_CLIENT/PM/FrameworkLib_3.6/Framework/include/
+FRM_LIB_PATH=/home/PM_NEPAL_CLIENT/PM/FrameworkLib_3.6/Framework/lib/
+CCFLAGS:= -I${ABL_INC_PATH} -I${FRM_INC_PATH} -I${APPROOT}/headerfiles -I$(ORACLE_HOME)/rdbms/public -c -fPIC
+DLNFLAGS:=-lpthread -shared -Wl,-soname,$(LIBNAME).so
+UNIT_TEST=-D $(UNIT)
+
+vpath %.cpp ${APPROOT}/sourcefiles
+vpath %.h ${APPROOT}/headerfiles
+vpath %.o ${APPROOT}/objectfiles
+
+.SUFFIXES: .cpp .o .typ .h
+
+static: ${OBJS}
+	ar rcs ${APPROOT}/lib/$(LIBNAME) ${APPROOT}/tmp/*.o
+caches: $(OBJS)
+	g++ -m64 ${DLNFLAGS} -o ${APPROOT}/bin/$(LIBNAME).$(VER).so.1 ${APPROOT}/objectfiles/*.o -L${ABL_LIB_PATH} -L${FRM_LIB_PATH} -L${APPROOT}/bin $(PMDEPLIBS) -lframework -labl  -lpthread
+	g++ -m64 -g ${DLNFLAGS} -o ${APPROOT}/bin/$(LIBNAMED).$(VER).so.1 ${APPROOT}/objectfiles/debug/*.o -L${ABL_LIB_PATH} -L${FRM_LIB_PATH} -L${APPROOT}/bin $(PMDEPLIBSD) -lframeworkd -labld  -lpthread
+	ln -s ${APPROOT}/bin/$(LIBNAME).$(VER).so.1 ${APPROOT}/bin/$(LIBNAME).so
+	ln -s ${APPROOT}/bin/$(LIBNAMED).$(VER).so.1 ${APPROOT}/bin/$(LIBNAMED).so
+agents: ${OBJS}
+	g++ -m64 ${DLNFLAGS} -o ${APPROOT}/bin/$(LIBNAME).$(VER).so.1 ${APPROOT}/objectfiles/*.o -L${ABL_LIB_PATH} -L${FRM_LIB_PATH} -L${APPROOT}/bin $(PMDEPLIBS) -lframework -labl  -lpthread
+	g++ -m64 -g ${DLNFLAGS} -o ${APPROOT}/bin/$(LIBNAMED).$(VER).so.1 ${APPROOT}/objectfiles/debug/*.o -L${ABL_LIB_PATH} -L${FRM_LIB_PATH} -L${APPROOT}/bin $(PMDEPLIBSD) -lframeworkd -labld  -lpthread
+	ln -s ${APPROOT}/bin/$(LIBNAME).$(VER).so.1 ${APPROOT}/bin/$(LIBNAME).so
+	ln -s ${APPROOT}/bin/$(LIBNAMED).$(VER).so.1 ${APPROOT}/bin/$(LIBNAMED).so
+
+dynamicpatchcaches: ${OBJS}
+	g++ -m64 ${DLNFLAGS} -o ${APPROOT}/bin/$(LIBNAME) ${APPROOT}/objectfiles/*.o -L${ABL_LIB_PATH} -L${FRM_LIB_PATH} -L${APPROOT}/bin $(PMDEPLIBS) -lframework -labl   -lpthread
+	g++ -m64 -g ${DLNFLAGS} -o ${APPROOT}/bin/$(LIBNAMED) ${APPROOT}/objectfiles/debug/*.o -L${ABL_LIB_PATH} -L${FRM_LIB_PATH} -L${APPROOT}/bin $(PMDEPLIBSD) -lframeworkd -labld   -lpthread
+
+dynamicpatchagents: ${OBJS}
+	g++ -m64 ${DLNFLAGS} -o ${APPROOT}/bin/$(LIBNAME) ${APPROOT}/objectfiles/*.o -L${ABL_LIB_PATH} -L${FRM_LIB_PATH} -L${APPROOT}/bin $(PMDEPLIBS) -lframework -labl   -lpthread
+	g++ -m64 -g ${DLNFLAGS} -o ${APPROOT}/bin/$(LIBNAMED) ${APPROOT}/objectfiles/debug/*.o -L${ABL_LIB_PATH} -L${FRM_LIB_PATH} -L${APPROOT}/bin $(PMDEPLIBSD) -lframeworkd -labld   -lpthread
+
+application: ${OBJS}
+	g++ -m64  $(UNIT_TEST) -L${ABL_LIB_PATH} -L${FRM_LIB_PATH} -o ${APPROOT}/bin/${EXE} ${APPROOT}/objectfiles/*.o  -lframework -labl   -lpthread -ldl
+	g++ -m64 -g $(UNIT_TEST) -L${ABL_LIB_PATH} -L${FRM_LIB_PATH} -o ${APPROOT}/bin/${EXED} ${APPROOT}/objectfiles/debug/*.o  -lframeworkd -labld   -lpthread -ldl
+
+test: ${OBJS}
+	g++ -m64 -g $(UNIT_TEST)=1 -L${ABL_LIB_PATH} -L${FRM_LIB_PATH} -o ${APPROOT}/bin/${EXE} ${APPROOT}/objectfiles/debug/*.o -lpthread -lframeworkd -labld -ldl
+
+.cpp.o: %.h
+	g++ -m64 -g $(UNIT_TEST)=1 -D BULK_FETCH_CNT=512 $(CCFLAGS) -o ${APPROOT}/objectfiles/$*.o ${APPROOT}/sourcefiles/$*.cpp
+	g++ -m64 -g $(UNIT_TEST)=1 -D BULK_FETCH_CNT=512 $(CCFLAGS) -o ${APPROOT}/objectfiles/debug/$*.o ${APPROOT}/sourcefiles/$*.cpp
+clean:
+	rm ../tmp/*
+	rm ../bin/lib*
+#	rm ../lib/*
+#	rm ../bin/*

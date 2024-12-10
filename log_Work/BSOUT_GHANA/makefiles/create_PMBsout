@@ -1,0 +1,5 @@
+rm ../objectfiles/*.o
+rm ../objectfiles/debug/*.o
+rm ../bin/PM_Bsout
+rm ../bin/PM_Bsoutd
+make -f abl_makefile_linux application UNIT=NO_TEST EXE="PM_Bsout" EXED="PM_Bsoutd" OBJS="PM_Bsout.o"

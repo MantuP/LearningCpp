@@ -1,0 +1,15 @@
+rm ProcessTAP.c ProcessStatus.c
+rm ProcessTAP.lis ProcessStatus.lis
+rm ProcessTAP
+rm -r min-def-obj
+rm core
+
+make -f makefile build EXE=TAPIN
+rm *.cod
+rm *.dcl
+rm *.cud
+rm ProcessTAP.lis ProcessStatus.lis
+rm -r min-def-obj
+#rm ProcessTAP.c ProcessStatus.c
+rm tp*
+
