@@ -1,4 +1,0 @@
-rm ../objectfiles/*.o
-rm ../objectfiles/debug/*.o
-rm ../bin/libpmrerateagent*
-make -f abl_makefile_linux agents UNIT=NO_TEST LIBNAME="libpmrerateagent" LIBNAMED="libpmrerateagentd" VER="5.0.0" OBJS="PM_Job.o PM_RerateInputAgent.o PM_ReadRejectedCdrs.o LastDummyAgent.o StopRating.o PM_CdrRecache.o"

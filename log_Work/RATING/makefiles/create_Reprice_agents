@@ -1,4 +1,0 @@
-rm ../objectfiles/*.o
-rm ../objectfiles/debug/*.o
-rm ../bin/libpmrepriceagent*
-make -f abl_makefile_linux agents UNIT=NO_TEST LIBNAME="libpmrepriceagent" LIBNAMED="libpmrepriceagentd" VER="5.0.0" OBJS="PM_Job.o PM_RepriceInputAgent.o PM_ReadRawCdrsFromDB.o"

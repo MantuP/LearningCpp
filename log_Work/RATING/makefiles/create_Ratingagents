@@ -1,4 +1,0 @@
-rm ../objectfiles/*.o
-rm ../objectfiles/debug/*.o
-rm ../bin/libpmratingagent*
-make -f abl_makefile_linux agents UNIT=NO_TEST LIBNAME="libpmratingagent" LIBNAMED="libpmratingagentd" VER="5.0.0" OBJS="PM_Job.o PM_FetchCdrFile.o PM_AgreegatGPRSCdrs.o PM_ReadRawCdrs.o PM_ParseRawEvent.o PM_ApplyRatingRules.o PM_FindPartner.o PM_ValidateService.o PM_DeriveService.o PM_FetchPartners_ServicesParameters.o PM_FindOrignRateZone.o PM_FindNumberPlan.o PM_FindDestinationRateZone.o PM_FindLCRDestinationNumber.o PM_FindTariffPlan.o PM_FindTimeType.o PM_FindTierId.o PM_CalculateTariff.o PM_InsertRatedCdrs.o PM_InsertRejectedCdrsInDB.o PM_InsertDuplicateCdrsInDB.o PM_InsertDroppedCdrsInDB.o PM_InsertLogsCallTypeCounts.o LastDummyAgent.o StopRating.o PM_CdrRecache.o "

@@ -1,5 +1,0 @@
-rm ../objectfiles/*.o
-rm ../objectfiles/debug/*.o
-rm ../bin/PM_Rating
-rm ../bin/PM_Ratingd
-make -f abl_makefile_linux application UNIT=NO_TEST EXE="PM_Rating" EXED="PM_Ratingd" OBJS="PM_Rating.o"
