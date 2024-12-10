@@ -1,0 +1,5 @@
+rm ../objectfiles/*.o
+rm ../objectfiles/debug/*.o
+rm ../bin/libpmratingcache*
+make -f abl_makefile_linux caches UNIT=NO_TEST LIBNAME="libpmratingcache" LIBNAMED="libpmratingcached" VER="5.0.0" OBJS="PM_RatingRulesCache.o PM_Partners_IdentifierCache.o PM_Partners_RoamingIdentifierCache.o PM_Find_NumberPlanCache.o PM_Partners_TariffPlanCache.o PM_HolidayCache.o PM_Tariffplan_DayCodeCache.o PM_Partners_Time_TypeCache.o PM_TierMappingCache.o PM_Partner_TariffCache.o PM_TariffSlabCache.o PM_ValidServicesCache.o PM_DeriveServicesCache.o PM_FetchPartners_ServicesParametersCache.o PM_DestinationCache.o PM_FindLCRDestinationCache.o PM_FindPartnerShortCodesCache.o PM_FindRecordingentityTypeCache.o"
+
